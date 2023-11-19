@@ -16,7 +16,23 @@ if (window.cordova) {
 }
 
 function initialize() {
-    updateQueryString()
+    document.getElementById('stateId').addEventListener('change', function() {
+        updateState(this.value);
+        runQuery();
+    });
+
+    document.getElementById('sexId').addEventListener('change', function() {
+        updateSex(this.value);
+        runQuery();
+    });
+
+    document.getElementById('yearId').addEventListener('change', function() {
+        updateYear(this.value);
+        runQuery();
+    });
+
+    // Initial query
+    runQuery();
 }    
 
 function updateState(value) { 
