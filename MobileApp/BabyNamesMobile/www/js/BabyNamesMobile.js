@@ -79,9 +79,54 @@ function runQuery() {
 
 function processQueryResult(queryReturned) {
     if (!queryReturned.Success) {
-        alert(queryReturned.Error)
+        console.error(queryReturned.Error);
+        // Handle the error, e.g., display an error message on the page
     } else {
-        document.getElementById("output").innerHTML = 
-            JSON.stringify(queryReturned.Result, null, 2);
+        const data = queryReturned.Result;
+
+        let names = [];
+        let numbers = [];
+
+        for (let i = 0; i < data.length; i++) {
+            names.push(data[i].name);
+            numbers.push(data[i].number);
+        }
+
+        console.log("Names:", names);
+        console.log("Numbers:", numbers);
+
+        // Pass the correct gender, state, and year values when calling updateChart
+        updateChart(names, numbers, data[0].sex, data[0].state, data[0].year);
     }
+}
+
+function updateChart(names, numbers, gender, state, year) {
+    // Use the names and numbers arrays to update your chart
+    // For example, you can use Chart.js to create a bar chart
+
+    // Assuming you have a canvas element with id "myChart"
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+    var chartTitle = `Most Popular ${gender.charAt(0).toUpperCase() + gender.slice(1)} Names from ${state} in ${year}`;
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: names,
+            datasets: [{
+                label: chartTitle,
+                data: numbers,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 }
