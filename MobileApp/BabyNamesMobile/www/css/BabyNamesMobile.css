@@ -1,0 +1,89 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+#head {
+    background-color: cadetblue;
+}
+
+#main {
+    background-color: cornsilk;
+}
+
+pre span, pre {
+    font-family: monospace;
+}
+
+h1 {
+    text-align: center;
+}
+
+#controlDiv {
+    width: 95%;
+    max-width: 600px; /* Adjust max-width based on your design */
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 1vw;
+}
+
+#controlDiv h1 {
+    margin-bottom: 1vw; /* Add margin between h1 and dropdowns */
+}
+
+#controlDiv button,
+#controlDiv select {
+    width: 30%; /* Adjust width based on your design */
+    max-width: 150px; /* Adjust max-width based on your design */
+    height: 6vw;
+    font-size: 3vw;
+    vertical-align: middle;
+}
+
+#sqlDebug {
+    margin: 3vh;
+}
+
+#sqlDebug pre {
+    background-color: lightblue;
+    border: 1px solid black;
+    border-radius: 2vw;
+    padding: 0.5vw;
+    font-size: 2.25vw;
+}
+
+
+/* Media Query for Portrait and Landscape */
+@media (orientation: portrait) {
+    #head {
+        height: 40vh;
+        width: 100%;
+        float: none;
+    }
+
+    #main {
+        height: 60vh;
+        width: 100%;
+        float: none;
+    }
+}
+
+@media (orientation: landscape) {
+    #head {
+        height: 100vh;
+        width: 50%;
+        float: left;
+    }
+
+    #main {
+        height: 100vh;
+        width: 50%;
+        float: right;
+    }
+}

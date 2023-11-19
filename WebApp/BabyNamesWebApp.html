@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<!-- ================================================================== -->
+	<!-- BabyNames - see https://www.kaggle.com/kaggle/us-baby-names        -->
+	<!-- ================================================================== -->
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BabyName Web App</title>
+
+    <style>
+        * {
+            box-sizing          : border-box;
+            margin              : 0;
+            font-family         : sans-serif;
+        }
+
+        body, html  { 
+            height              : 100vh;
+            width               : 100vw;
+        }
+
+        #head    { 
+            height              : 30vh;
+            background-color    : cadetblue;
+        }
+        #main       { 
+            height              : 70vh;
+            background-color    : cornsilk;
+        }
+        
+        pre span, pre {
+            font-family         : monospace;
+        }
+
+        h1 {
+            text-align          : center;
+        }
+
+        #sqlDebug  {
+            margin              : 3vh;
+        }
+
+        #sqlDebug pre {
+            background-color    : lightblue;
+            border              : 1px solid black;
+            border-radius       : 2vw;
+            padding             : 0.5vw;
+            font-size           : 2.25vw;
+        }
+
+        #controlDiv {
+            width               : 95vw;
+            margin              : 0 auto;
+            text-align          : center;
+            padding-top         : 1vw;
+        }
+
+        #controlDiv button, select {
+            width               : 20vw;
+            height              : 6vw;
+            font-size           : 3vw;
+            vertical-align      : middle;
+        }        
+    </style>
+
+
+</head>
+<body onload="initialize()">
+
+    <div id="head">
+        <div id="controlDiv">
+            <h1>Top Baby Names</h1>
+            <select name="state" id="stateId" onchange="updateState(value)">
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="DC">District Of Columbia</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NY">New York</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+            </select>	
+            
+            <select name="sex" id="sexId" onchange="updateSex(value)">
+                <option value="girl">Girl</option>
+                <option value="boy">Boy</option>
+            </select>
+
+            <select name="year" id="yearId" onchange="updateYear(value)">
+                <option value="1960">1960</option>
+                <option value="1961">1961</option>
+                <option value="1962">1962</option>
+                <option value="1963">1963</option>
+                <option value="1964">1964</option>
+                <option value="1965">1965</option>
+                <option value="1966">1966</option>
+                <option value="1967">1967</option>
+                <option value="1968">1968</option>
+                <option value="1969">1969</option>
+                <option value="1970">1970</option>
+                <option value="1971">1971</option>
+                <option value="1972">1972</option>
+                <option value="1973">1973</option>
+                <option value="1974">1974</option>
+                <option value="1975">1975</option>
+                <option value="1976">1976</option>
+                <option value="1977">1977</option>
+                <option value="1978">1978</option>
+                <option value="1979">1979</option>
+                <option value="1980">1980</option>
+                <option value="1981">1981</option>
+                <option value="1982">1982</option>
+                <option value="1983">1983</option>
+                <option value="1984">1984</option>
+                <option value="1985">1985</option>
+                <option value="1986">1986</option>
+                <option value="1987">1987</option>
+                <option value="1988">1988</option>
+                <option value="1989">1989</option>
+                <option value="1990">1990</option>
+                <option value="1991">1991</option>
+                <option value="1992">1992</option>
+                <option value="1993">1993</option>
+                <option value="1994">1994</option>
+                <option value="1995">1995</option>
+                <option value="1996">1996</option>
+                <option value="1997">1997</option>
+                <option value="1998">1998</option>
+                <option value="1999">1999</option>
+                <option value="2000">2000</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+                <option value="2003">2003</option>
+                <option value="2004">2004</option>
+                <option value="2005">2005</option>
+                <option value="2006">2006</option>
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>                
+            </select>
+
+            <button type="button" onclick="runQuery()">Run</button>
+        </div>
+        <div id="sqlDebug">
+            <pre><span id="queryStingId"></span></pre>
+        </div>
+    </div>
+
+    <div id="main"> 
+
+        <pre id="output"></pre>
+
+    </div>
+
+	<script src="http://web.cloud.wpcarey.asu.edu/mysql/sql.js"></script>
+    <script>
+        "use strict";
+
+        // default query values
+        let state       = "AL"
+        let sex         = "girl"
+        let year        = "1960"
+        let queryString = ""
+
+        function initialize() {
+            updateQueryString()
+        }    
+
+        function updateState(value) { 
+            state = value 
+            updateQueryString()
+        }
+
+        function updateSex(value)   { 
+            sex = value 
+            updateQueryString()
+        }
+
+        function updateYear(value)  { 
+            year = value 
+            updateQueryString()
+        }
+        
+        function updateQueryString() {
+            queryString = 
+
+              "SELECT name, number, state, sex, year \n" 
+			+ "FROM   NamesNumberByStateYear \n"
+			+ "WHERE\n "
+            + " state = "    + "'" + state   + "'"
+            + " AND sex = "  + "'" + sex     + "'"
+            + " AND year = " + "'" + year    + "'\n"
+			+ "ORDER BY number DESC LIMIT 5;"
+            document.getElementById('queryStingId').innerHTML = queryString;
+        }
+
+        function runQuery() {
+            MySql.Execute(
+                "sql.wpc-is.online",	// mySQL server
+                "demo", 				// login name
+                "demo12345", 			// login password
+                "BabyNames", 			// database to use
+                                        // SQL query string:
+                queryString,
+                function (data) {
+                    processQueryResult(data);
+                }
+            );
+        }
+
+    	function processQueryResult(queryReturned) {
+    		if (!queryReturned.Success) {
+    			alert(queryReturned.Error)
+    		} else {
+    			document.getElementById("output").innerHTML = 
+    				JSON.stringify(queryReturned.Result, null, 2);
+            }
+    	}
+	</script>
+</body>
+</html>

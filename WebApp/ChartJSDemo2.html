@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart JS Demo 2</title>
+    <style>
+        * {
+            box-sizing          : border-box;
+            margin              : 0;
+            font-family         : sans-serif;
+        }
+
+        body, html  { height    : 100vh; }
+
+        #head    { 
+            height              : 30vh;
+            background-color    : cadetblue;
+        }
+        #main       { 
+            height              : 70vh;
+            background-color    : cornsilk;
+            position            : relative; /* chartjs RWD requirement */
+        }
+        h1 {
+            text-align          : center;
+        }
+
+        button {
+            font-size:          5vh;
+            margin:             5vh auto;
+            display:            block;
+        }
+    </style>
+</head>
+<body>
+    <div id="head">
+        <h1>Chart Demo</h1>
+        <button type="button" onclick="updateChart()">Refresh</button>
+    </div>
+    <div id="main">
+            <canvas id="chartCanvasId"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script>
+        "use strict";
+
+        let girl                = true
+        let names               = []
+        let numbers             = []
+        let chartTitle          = ""
+        let chartCanvas         = undefined
+        let chartContext        = undefined
+        let myChart             = undefined
+        
+        chartCanvas  = document.getElementById('chartCanvasId')
+        chartContext = chartCanvas.getContext('2d')
+
+        // make a new chart with data and options this time...
+        myChart = new Chart(chartContext, {
+            type: 'bar',
+            data: {
+                labels: names,
+                datasets: [{
+                    label: 'Number of Babies Named...',
+                    data: numbers,
+                    backgroundColor:[
+                        '#aaa',
+                        '#bbb',
+                        '#ccc',
+                        '#ddd',
+                        '#eee',
+                    ]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Most Popular Girl Names from Alabama in 1960"
+                },
+                responsive: true,           // chartjs RWD requirement
+                maintainAspectRatio: false  // chartjs RWD requirement
+            }
+        });
+
+        function updateChart() {
+
+            if (girl) {
+                names       = ["Mary", "Lisa", "Patricia", "Linda", "Susan"]
+                numbers     = [407, 250, 245, 241, 214]
+                chartTitle  = "Top AZ Girl Names in 1960"
+            } else {
+                names       = ["David", "Robert", "Michael", "John", "James"]
+                numbers     = [710, 600, 598, 550, 504]
+                chartTitle  = "Top AZ Boy Names in 1960"
+            }
+
+            girl = !girl
+
+            // update the charts names, numbers and title, then update it.
+            myChart.data.labels             = names
+            myChart.data.datasets[0].data   = numbers
+            myChart.options.title.text      = chartTitle
+            myChart.update()
+        }        
+    </script>
+</body>
+</html>

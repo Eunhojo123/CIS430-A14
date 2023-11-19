@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Portrait vs Landscape Media Query</title>
+
+    <style>
+        * {
+            box-sizing    : border-box;
+            margin        : 0;
+            font-family   : sans-serif;
+        }
+        
+        html, body  { 
+            height        : 100vh;
+            width         : 100vw;
+        }
+
+        @media (orientation: portrait) {
+            h2::after { content: "Portrait Mode"                    }
+            h3::after { content: "Height: Head: 20vh, Main: 80vh"   }
+            h4::after { content: "Width: Head: 100vw, Main: 100vw"  }
+            #head { height: 20vh;   }
+            #main { height: 80vh;   }
+            #head { width:  100vw;  }
+            #main { width:  100vw;  }
+            #head { float:  none;   }
+            #main { float:  none;   }
+        }
+
+        @media (orientation: landscape) {
+            h2::after { content: "Landscape Mode"                   }
+            h3::after { content: "Height: Head: 100vh, Main: 100vh" }
+            h4::after { content: "Width: Head: 50vw, Main: 50vw"    }
+            #head { height: 100vh;  }
+            #main { height: 100vh;  }
+            #head { width:  50vw;   }
+            #main { width:  50vw;   }
+            #head { float:  left;   }
+            #main { float:  left;   }
+        }
+
+        #head { background-color: cadetblue;     }
+        #main { background-color: cornsilk; }
+    </style>
+</head>
+
+<body>
+    <div id="head">
+        <h1>Currently in: </h1>
+        <h2></h2>
+        <h3></h3>
+        <h4></h4>
+    </div>
+    <div id="main">
+        <h1>Currently in: </h1>
+        <h2></h2>
+        <h3></h3>
+        <h4></h4>
+    </div>
+</body>
+</html>
