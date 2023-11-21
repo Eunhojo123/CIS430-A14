@@ -80,7 +80,6 @@ function runQuery() {
 function processQueryResult(queryReturned) {
     if (!queryReturned.Success) {
         console.error(queryReturned.Error);
-        // Handle the error, e.g., display an error message on the page
     } else {
         const data = queryReturned.Result;
 
@@ -95,19 +94,22 @@ function processQueryResult(queryReturned) {
         console.log("Names:", names);
         console.log("Numbers:", numbers);
 
-        // Pass the correct gender, state, and year values when calling updateChart
         updateChart(names, numbers, data[0].sex, data[0].state, data[0].year);
     }
 }
 
 function updateChart(names, numbers, gender, state, year) {
-    // Use the names and numbers arrays to update your chart
-    // For example, you can use Chart.js to create a bar chart
-
-    // Assuming you have a canvas element with id "myChart"
     var ctx = document.getElementById('myChart').getContext('2d');
 
     var chartTitle = `Most Popular ${gender.charAt(0).toUpperCase() + gender.slice(1)} Names from ${state} in ${year}`;
+
+    var backgroundColors = ['rgba(0, 0, 255, 0.5)',   
+                            'rgba(255, 0, 0, 0.5)',   
+                            'rgba(255, 255, 255, 0.5)',
+                            'rgba(255, 255, 0, 0.5)',  
+                            'rgba(0, 128, 0, 0.5)'];  
+
+    var borderColors = 'rgba(169, 169, 169, 1)';  
 
     var myChart = new Chart(ctx, {
         type: 'bar',
@@ -116,9 +118,9 @@ function updateChart(names, numbers, gender, state, year) {
             datasets: [{
                 label: chartTitle,
                 data: numbers,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                backgroundColor: backgroundColors, 
+                borderColor: borderColors, 
+                borderWidth: 2 
             }]
         },
         options: {
@@ -130,3 +132,4 @@ function updateChart(names, numbers, gender, state, year) {
         }
     });
 }
+updateChart(names, numbers, 'girl', 'AZ', 1960);

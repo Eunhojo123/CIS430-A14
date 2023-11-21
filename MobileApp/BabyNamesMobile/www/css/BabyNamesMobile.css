@@ -27,20 +27,20 @@ h1 {
 
 #controlDiv {
     width: 95%;
-    max-width: 600px; /* Adjust max-width based on your design */
+    max-width: 600px; 
     margin: 0 auto;
     text-align: center;
     padding-top: 1vw;
 }
 
 #controlDiv h1 {
-    margin-bottom: 1vw; /* Add margin between h1 and dropdowns */
+    margin-bottom: 1vw; 
 }
 
 #controlDiv button,
 #controlDiv select {
-    width: 30%; /* Adjust width based on your design */
-    max-width: 150px; /* Adjust max-width based on your design */
+    width: 30%; 
+    max-width: 150px; 
     height: 6vw;
     font-size: 3vw;
     vertical-align: middle;
@@ -58,8 +58,6 @@ h1 {
     font-size: 2.25vw;
 }
 
-
-/* Media Query for Portrait and Landscape */
 @media (orientation: portrait) {
     #head {
         height: 40vh;
